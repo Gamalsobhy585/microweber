@@ -1,5 +1,5 @@
 import {defineConfig} from 'vite';
-import laravel from 'laravel-vite-plugin';
+import laravel, { refreshPaths } from 'laravel-vite-plugin'
 import {copyFolderSyncVite} from "vite-plugin-copy-folder"
 import path from 'path';
 
@@ -16,8 +16,10 @@ export default defineConfig({
                 __dirname + '/resources/assets/sass/app.scss',
                 __dirname + '/resources/assets/js/app.js'
             ],
-            refresh: true,
-        }),
+            refresh: [
+                ...refreshPaths,
+                'app/Livewire/**',
+            ],        }),
         copyFolderSyncVite(__dirname+ '/resources/assets/', __dirname+ '/../../public/modules/layout_content/'),
     ],
 });
